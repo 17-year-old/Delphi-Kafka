@@ -472,7 +472,7 @@ type
 
   rd_kafka_topic_partition_t = rd_kafka_topic_partition_s;
   prd_kafka_topic_partition_t = ^rd_kafka_topic_partition_t;
-  rd_kafka_topic_partition_array = array[0..0] of rd_kafka_topic_partition_t;
+  rd_kafka_topic_partition_array = array [0 .. 0] of rd_kafka_topic_partition_t;
   prd_kafka_topic_partition_array = ^rd_kafka_topic_partition_array;
   (* *
     * @brief Destroy a rd_kafka_topic_partition_t.
@@ -528,7 +528,8 @@ procedure rd_kafka_topic_partition_list_destroy(rkparlist: prd_kafka_topic_parti
   * @returns The object which can be used to fill in additionals fields.
 *)
 
-function rd_kafka_topic_partition_list_add(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar; partition: Int32): prd_kafka_topic_partition_t; cdecl;
+function rd_kafka_topic_partition_list_add(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar;
+  partition: Int32): prd_kafka_topic_partition_t; cdecl;
 
 (* *
   * @brief Add range of partitions from \p start to \p stop inclusive.
@@ -539,7 +540,8 @@ function rd_kafka_topic_partition_list_add(rktparlist: prd_kafka_topic_partition
   * @param stop       Last partition of range (inclusive)
 *)
 
-procedure rd_kafka_topic_partition_list_add_range(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar; start: Int32; stop: Int32); cdecl;
+procedure rd_kafka_topic_partition_list_add_range(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar;
+  start: Int32; stop: Int32); cdecl;
 
 (* *
   * @brief Delete partition from list.
@@ -553,7 +555,8 @@ procedure rd_kafka_topic_partition_list_add_range(rktparlist: prd_kafka_topic_pa
   * @remark Any held indices to elems[] are unusable after this call returns 1.
 *)
 
-function rd_kafka_topic_partition_list_del(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar; partition: Int32): integer; cdecl;
+function rd_kafka_topic_partition_list_del(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar;
+  partition: Int32): integer; cdecl;
 
 (* *
   * @brief Delete partition from list by elems[] index.
@@ -563,7 +566,8 @@ function rd_kafka_topic_partition_list_del(rktparlist: prd_kafka_topic_partition
   * @sa rd_kafka_topic_partition_list_del()
 *)
 
-function rd_kafka_topic_partition_list_del_by_idx(rktparlist: prd_kafka_topic_partition_list_t; idx: integer): integer; cdecl;
+function rd_kafka_topic_partition_list_del_by_idx(rktparlist: prd_kafka_topic_partition_list_t; idx: integer)
+  : integer; cdecl;
 
 (* *
   * @brief Make a copy of an existing list.
@@ -573,7 +577,8 @@ function rd_kafka_topic_partition_list_del_by_idx(rktparlist: prd_kafka_topic_pa
   * @returns A new list fully populated to be identical to \p src
 *)
 
-function rd_kafka_topic_partition_list_copy(src: prd_kafka_topic_partition_list_t): prd_kafka_topic_partition_list_t; cdecl;
+function rd_kafka_topic_partition_list_copy(src: prd_kafka_topic_partition_list_t)
+  : prd_kafka_topic_partition_list_t; cdecl;
 
 (* *
   * @brief Set offset to \p offset for \p topic and \p partition
@@ -583,7 +588,8 @@ function rd_kafka_topic_partition_list_copy(src: prd_kafka_topic_partition_list_
   *          in the list.
 *)
 
-function rd_kafka_topic_partition_list_set_offset(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar; partition: Int32; offset: Int64): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_topic_partition_list_set_offset(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar;
+  partition: Int32; offset: Int64): rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Find element by \p topic and \p partition.
@@ -591,7 +597,8 @@ function rd_kafka_topic_partition_list_set_offset(rktparlist: prd_kafka_topic_pa
   * @returns a pointer to the first matching element, or NULL if not found.
 *)
 
-function rd_kafka_topic_partition_list_find(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar; partition: Int32): prd_kafka_topic_partition_t; cdecl;
+function rd_kafka_topic_partition_list_find(rktparlist: prd_kafka_topic_partition_list_t; topic: PAnsiChar;
+  partition: Int32): prd_kafka_topic_partition_t; cdecl;
 
 (* *@} *)
 
@@ -752,7 +759,8 @@ function rd_kafka_conf_dup(conf: prd_kafka_conf_t): prd_kafka_conf_t; cdecl;
   * error string.
 *)
 
-function rd_kafka_conf_set(conf: prd_kafka_conf_t; name: PAnsiChar; value: PAnsiChar; errstr: PAnsiChar; errstr_size: size_t): rd_kafka_conf_res_t; cdecl;
+function rd_kafka_conf_set(conf: prd_kafka_conf_t; name: PAnsiChar; value: PAnsiChar; errstr: PAnsiChar;
+  errstr_size: size_t): rd_kafka_conf_res_t; cdecl;
 
 (* *
   * @brief Enable event sourcing.
@@ -767,7 +775,8 @@ procedure rd_kafka_conf_set_events(conf: prd_kafka_conf_t; events: integer); cde
 *)
 
 type
-  dr_cb = procedure(rk: prd_kafka_t; payload: Pointer; len: size_t; err: rd_kafka_resp_err_t; opaque: Pointer; msg_opaque: Pointer); cdecl;
+  dr_cb = procedure(rk: prd_kafka_t; payload: Pointer; len: size_t; err: rd_kafka_resp_err_t; opaque: Pointer;
+    msg_opaque: Pointer); cdecl;
 procedure rd_kafka_conf_set_dr_cb(conf: prd_kafka_conf_t; cb: dr_cb); cdecl;
 
 (* *
@@ -860,7 +869,8 @@ procedure rd_kafka_conf_set_consume_cb(conf: prd_kafka_conf_t; cb: set_consume_c
 *)
 
 type
-  rebalance_cb = procedure(rk: prd_kafka_t; err: rd_kafka_resp_err_t; partitions: prd_kafka_topic_partition_list_t; opaque: Pointer); cdecl;
+  rebalance_cb = procedure(rk: prd_kafka_t; err: rd_kafka_resp_err_t; partitions: prd_kafka_topic_partition_list_t;
+    opaque: Pointer); cdecl;
 
 procedure rd_kafka_conf_set_rebalance_cb(conf: prd_kafka_conf_t; cb: rebalance_cb); cdecl;
 
@@ -880,7 +890,8 @@ procedure rd_kafka_conf_set_rebalance_cb(conf: prd_kafka_conf_t; cb: rebalance_c
 *)
 
 type
-  offset_commit_cb = procedure(rk: prd_kafka_t; err: rd_kafka_resp_err_t; offsets: prd_kafka_topic_partition_list_t; opaque: Pointer); cdecl;
+  offset_commit_cb = procedure(rk: prd_kafka_t; err: rd_kafka_resp_err_t; offsets: prd_kafka_topic_partition_list_t;
+    opaque: Pointer); cdecl;
 
 procedure rd_kafka_conf_set_offset_commit_cb(conf: prd_kafka_conf_t; cb: offset_commit_cb); cdecl;
 
@@ -913,7 +924,8 @@ procedure rd_kafka_conf_set_error_cb(conf: prd_kafka_conf_t; cb: error_cb); cdec
 *)
 
 type
-  throttle_cb = procedure(rk: prd_kafka_t; broker_name: PAnsiChar; broker_id: Int32; throttle_time_ms: integer; opaque: Pointer); cdecl;
+  throttle_cb = procedure(rk: prd_kafka_t; broker_name: PAnsiChar; broker_id: Int32; throttle_time_ms: integer;
+    opaque: Pointer); cdecl;
 
 procedure rd_kafka_conf_set_throttle_cb(conf: prd_kafka_conf_t; cb: throttle_cb); cdecl;
 
@@ -1027,7 +1039,8 @@ procedure rd_kafka_conf_set_default_topic_conf(conf: prd_kafka_conf_t; tconf: pr
   * \p RD_KAFKA_CONF_UNKNOWN.
 *)
 
-function rd_kafka_conf_get(conf: prd_kafka_conf_t; name: PAnsiChar; dest: PAnsiChar; dest_size: psize_t): rd_kafka_conf_res_t; cdecl;
+function rd_kafka_conf_get(conf: prd_kafka_conf_t; name: PAnsiChar; dest: PAnsiChar; dest_size: psize_t)
+  : rd_kafka_conf_res_t; cdecl;
 
 (* *
   * @brief Retrieve topic configuration value for property \p name.
@@ -1035,7 +1048,8 @@ function rd_kafka_conf_get(conf: prd_kafka_conf_t; name: PAnsiChar; dest: PAnsiC
   * @sa rd_kafka_conf_get()
 *)
 
-function rd_kafka_topic_conf_get(conf: prd_kafka_topic_conf_t; name: PAnsiChar; dest: PAnsiChar; dest_size: psize_t): rd_kafka_conf_res_t; cdecl;
+function rd_kafka_topic_conf_get(conf: prd_kafka_topic_conf_t; name: PAnsiChar; dest: PAnsiChar; dest_size: psize_t)
+  : rd_kafka_conf_res_t; cdecl;
 
 (* *
   * @brief Dump the configuration properties and values of \p conf to an array
@@ -1116,7 +1130,8 @@ procedure rd_kafka_topic_conf_destroy(topic_conf: prd_kafka_topic_conf_t); cdecl
   * @returns rd_kafka_conf_res_t to indicate success or failure.
 *)
 
-function rd_kafka_topic_conf_set(conf: prd_kafka_topic_conf_t; name: PAnsiChar; value: PAnsiChar; errstr: PAnsiChar; errstr_size: size_t): rd_kafka_conf_res_t; cdecl;
+function rd_kafka_topic_conf_set(conf: prd_kafka_topic_conf_t; name: PAnsiChar; value: PAnsiChar; errstr: PAnsiChar;
+  errstr_size: size_t): rd_kafka_conf_res_t; cdecl;
 
 (* *
   * @brief Sets the application's opaque pointer that will be passed to all topic
@@ -1141,7 +1156,8 @@ procedure rd_kafka_topic_conf_set_opaque(conf: prd_kafka_topic_conf_t; opaque: P
 *)
 
 type
-  partitioner = function(rkt: prd_kafka_topic_t; keydata: Pointer; keylen: size_t; partition_cnt: Int32; rkt_opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
+  partitioner = function(rkt: prd_kafka_topic_t; keydata: Pointer; keylen: size_t; partition_cnt: Int32;
+    rkt_opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
 
 procedure rd_kafka_topic_conf_set_partitioner_cb(topic_conf: prd_kafka_topic_conf_t; p: partitioner); cdecl;
 
@@ -1170,7 +1186,8 @@ function rd_kafka_topic_partition_available(rkt: prd_kafka_topic_t; partition: I
   *
 *)
 
-function rd_kafka_msg_partitioner_random(rkt: prd_kafka_topic_t; key: Pointer; keylen: size_t; partition_cnt: Int32; opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
+function rd_kafka_msg_partitioner_random(rkt: prd_kafka_topic_t; key: Pointer; keylen: size_t; partition_cnt: Int32;
+  opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
 
 (* *
   * @brief Consistent partitioner.
@@ -1181,7 +1198,8 @@ function rd_kafka_msg_partitioner_random(rkt: prd_kafka_topic_t; key: Pointer; k
   *          the CRC value of the key
 *)
 
-function rd_kafka_msg_partitioner_consistent(rkt: prd_kafka_topic_t; key: Pointer; keylen: size_t; partition_cnt: Int32; opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
+function rd_kafka_msg_partitioner_consistent(rkt: prd_kafka_topic_t; key: Pointer; keylen: size_t; partition_cnt: Int32;
+  opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
 
 (* *
   * @brief Consistent-Random partitioner.
@@ -1194,7 +1212,8 @@ function rd_kafka_msg_partitioner_consistent(rkt: prd_kafka_topic_t; key: Pointe
   *          the CRC value of the key (if provided)
 *)
 
-function rd_kafka_msg_partitioner_consistent_random(rkt: prd_kafka_topic_t; key: Pointer; keylen: size_t; partition_cnt: Int32; opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
+function rd_kafka_msg_partitioner_consistent_random(rkt: prd_kafka_topic_t; key: Pointer; keylen: size_t;
+  partition_cnt: Int32; opaque: Pointer; msg_opaque: Pointer): Int32; cdecl;
 
 (* *@} *)
 
@@ -1232,7 +1251,8 @@ function rd_kafka_msg_partitioner_consistent_random(rkt: prd_kafka_topic_t; key:
   * @sa To destroy the Kafka handle, use rd_kafka_destroy().
 *)
 
-function rd_kafka_new(&type: rd_kafka_type_t; conf: prd_kafka_conf_t; errstr: PAnsiChar; errstr_size: size_t): prd_kafka_t; cdecl;
+function rd_kafka_new(&type: rd_kafka_type_t; conf: prd_kafka_conf_t; errstr: PAnsiChar; errstr_size: size_t)
+  : prd_kafka_t; cdecl;
 
 (* *
   * @brief Destroy Kafka handle.
@@ -1358,7 +1378,8 @@ procedure rd_kafka_yield(rk: prd_kafka_t); cdecl;
   * @returns RD_KAFKA_RESP_ERR_NO_ERROR
 *)
 
-function rd_kafka_pause_partitions(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_list_t): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_pause_partitions(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_list_t)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Resume producing consumption for the provided list of partitions.
@@ -1368,7 +1389,8 @@ function rd_kafka_pause_partitions(rk: prd_kafka_t; partitions: prd_kafka_topic_
   * @returns RD_KAFKA_RESP_ERR_NO_ERROR
 *)
 
-function rd_kafka_resume_partitions(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_list_t): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_resume_partitions(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_list_t)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Query broker for low (oldest/beginning) and high (newest/end) offsets
@@ -1379,7 +1401,8 @@ function rd_kafka_resume_partitions(rk: prd_kafka_t; partitions: prd_kafka_topic
   * @returns RD_KAFKA_RESP_ERR_NO_ERROR on success or an error code on failure.
 *)
 
-function rd_kafka_query_watermark_offsets(rk: prd_kafka_t; topic: PAnsiChar; partition: Int32; low: pInt64; high: pInt64; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_query_watermark_offsets(rk: prd_kafka_t; topic: PAnsiChar; partition: Int32; low: pInt64;
+  high: pInt64; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Get last known low (oldest/beginning) and high (newest/end) offsets
@@ -1398,7 +1421,8 @@ function rd_kafka_query_watermark_offsets(rk: prd_kafka_t; topic: PAnsiChar; par
   * @remark Shall only be used with an active consumer instance.
 *)
 
-function rd_kafka_get_watermark_offsets(rk: prd_kafka_t; topic: PAnsiChar; partition: Int32; low: pInt64; high: pInt64): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_get_watermark_offsets(rk: prd_kafka_t; topic: PAnsiChar; partition: Int32; low: pInt64; high: pInt64)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Free pointer returned by librdkafka
@@ -1557,8 +1581,7 @@ function RD_KAFKA_OFFSET_TAIL(cnt: integer): integer; inline;
   *
   * Use `rd_kafka_errno2err()` to convert sytem \c errno to `rd_kafka_resp_err_t`
 *)
-function rd_kafka_consume_start(rkt: prd_kafka_topic_t; partition: Integer;
-			    offset: Int64): Integer; cdecl;
+function rd_kafka_consume_start(rkt: prd_kafka_topic_t; partition: integer; offset: Int64): integer; cdecl;
 (* *
   * @brief Same as rd_kafka_consume_start() but re-routes incoming messages to
   * the provided queue \p rkqu (which must have been previously allocated
@@ -1574,7 +1597,8 @@ function rd_kafka_consume_start(rkt: prd_kafka_topic_t; partition: Integer;
   * be combined for the same topic and partition.
 *)
 
-function rd_kafka_consume_start_queue(rkt: prd_kafka_topic_t; partition: Int32; offset: Int64; rkqu: prd_kafka_queue_t): integer; cdecl;
+function rd_kafka_consume_start_queue(rkt: prd_kafka_topic_t; partition: Int32; offset: Int64; rkqu: prd_kafka_queue_t)
+  : integer; cdecl;
 
 (* *
   * @brief Stop consuming messages for topic \p rkt and \p partition, purging
@@ -1607,7 +1631,8 @@ function rd_kafka_consume_stop(rkt: prd_kafka_topic_t; partition: Int32): intege
   * @returns `RD_KAFKA_RESP_ERR__NO_ERROR` on success else an error code.
 *)
 
-function rd_kafka_seek(rkt: prd_kafka_topic_t; partition: Int32; offset: Int64; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_seek(rkt: prd_kafka_topic_t; partition: Int32; offset: Int64; timeout_ms: integer)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Consume a single message from topic \p rkt and \p partition
@@ -1656,7 +1681,8 @@ function rd_kafka_consume(rkt: prd_kafka_topic_t; partition: Int32; timeout_ms: 
   * @sa rd_kafka_consume()
 *)
 
-function rd_kafka_consume_batch(rkt: prd_kafka_topic_t; partition: Int32; timeout_ms: integer; var rkmessages: rd_kafka_message_t; rkmessages_size: size_t): ssize_t; cdecl;
+function rd_kafka_consume_batch(rkt: prd_kafka_topic_t; partition: Int32; timeout_ms: integer;
+  var rkmessages: rd_kafka_message_t; rkmessages_size: size_t): ssize_t; cdecl;
 
 (* *
   * @brief Consumes messages from topic \p rkt and \p partition, calling
@@ -1681,7 +1707,8 @@ function rd_kafka_consume_batch(rkt: prd_kafka_topic_t; partition: Int32; timeou
 
 type
   consume_cb = procedure(rkmessage: prd_kafka_message_t; opaque: Pointer); cdecl;
-function rd_kafka_consume_callback(rkt: prd_kafka_topic_t; partition: Int32; timeout_ms: integer; cb: consume_cb; opaque: Pointer): integer; cdecl;
+function rd_kafka_consume_callback(rkt: prd_kafka_topic_t; partition: Int32; timeout_ms: integer; cb: consume_cb;
+  opaque: Pointer): integer; cdecl;
 
 (* *
   * @name Simple Consumer API (legacy): Queue consumers
@@ -1708,7 +1735,8 @@ function rd_kafka_consume_queue(rkqu: prd_kafka_queue_t; timeout_ms: integer): p
   * @sa rd_kafka_consume_batch()
 *)
 
-function rd_kafka_consume_batch_queue(rkqu: prd_kafka_queue_t; timeout_ms: integer; var rkmessages: rd_kafka_message_t; rkmessages_size: size_t): ssize_t; cdecl;
+function rd_kafka_consume_batch_queue(rkqu: prd_kafka_queue_t; timeout_ms: integer; var rkmessages: rd_kafka_message_t;
+  rkmessages_size: size_t): ssize_t; cdecl;
 
 (* *
   * @brief Consume multiple messages from queue with callback
@@ -1720,7 +1748,8 @@ type
 
   consume_queue_cb = procedure(rkmessage: prd_kafka_message_t; opaque: Pointer); cdecl;
 
-function rd_kafka_consume_callback_queue(rkqu: prd_kafka_queue_t; timeout_ms: integer; cb: consume_queue_cb; opaque: Pointer): integer; cdecl;
+function rd_kafka_consume_callback_queue(rkqu: prd_kafka_queue_t; timeout_ms: integer; cb: consume_queue_cb;
+  opaque: Pointer): integer; cdecl;
 
 (* *@} *)
 
@@ -1783,7 +1812,8 @@ function rd_kafka_unsubscribe(rk: prd_kafka_t): rd_kafka_resp_err_t; cdecl;
   *         rd_kafka_topic_partition_list_destroy on the returned list.
 *)
 
-function rd_kafka_subscription(rk: prd_kafka_t; var topics: rd_kafka_topic_partition_list_t): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_subscription(rk: prd_kafka_t; var topics: rd_kafka_topic_partition_list_t)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Poll the consumer for messages or events.
@@ -1850,7 +1880,8 @@ function rd_kafka_assign(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_
   *         rd_kafka_topic_partition_list_destroy on the returned list.
 *)
 
-function rd_kafka_assignment(rk: prd_kafka_t; var partitions: prd_kafka_topic_partition_list_t): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_assignment(rk: prd_kafka_t; var partitions: prd_kafka_topic_partition_list_t)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Commit offsets on broker for the provided list of partitions.
@@ -1868,7 +1899,8 @@ function rd_kafka_assignment(rk: prd_kafka_t; var partitions: prd_kafka_topic_pa
   *  * if !async: callback will be called from rd_kafka_commit()
 *)
 
-function rd_kafka_commit(rk: prd_kafka_t; offsets: prd_kafka_topic_partition_list_t; async: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_commit(rk: prd_kafka_t; offsets: prd_kafka_topic_partition_list_t; async: integer)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Commit message's offset on broker for the message's partition.
@@ -1876,7 +1908,8 @@ function rd_kafka_commit(rk: prd_kafka_t; offsets: prd_kafka_topic_partition_lis
   * @sa rd_kafka_commit
 *)
 
-function rd_kafka_commit_message(rk: prd_kafka_t; rkmessage: prd_kafka_message_t; async: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_commit_message(rk: prd_kafka_t; rkmessage: prd_kafka_message_t; async: integer)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Commit offsets on broker for the provided list of partitions.
@@ -1901,9 +1934,11 @@ function rd_kafka_commit_message(rk: prd_kafka_t; rkmessage: prd_kafka_message_t
 *)
 
 type
-  commit_queue_cb = procedure(rk: prd_kafka_t; err: rd_kafka_resp_err_t; offsets: prd_kafka_topic_partition_list_t; opaque: Pointer); cdecl;
+  commit_queue_cb = procedure(rk: prd_kafka_t; err: rd_kafka_resp_err_t; offsets: prd_kafka_topic_partition_list_t;
+    opaque: Pointer); cdecl;
 
-function rd_kafka_commit_queue(rk: prd_kafka_t; offsets: prd_kafka_topic_partition_list_t; rkqu: prd_kafka_queue_t; cb: commit_queue_cb; opaque: Pointer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_commit_queue(rk: prd_kafka_t; offsets: prd_kafka_topic_partition_list_t; rkqu: prd_kafka_queue_t;
+  cb: commit_queue_cb; opaque: Pointer): rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Retrieve committed offsets for topics+partitions.
@@ -1918,7 +1953,8 @@ function rd_kafka_commit_queue(rk: prd_kafka_t; offsets: prd_kafka_topic_partiti
   *          Else returns an error code.
 *)
 
-function rd_kafka_committed(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_list_t; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_committed(rk: prd_kafka_t; partitions: prd_kafka_topic_partition_list_t; timeout_ms: integer)
+  : rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Retrieve current positions (offsets) for topics+partitions.
@@ -2024,34 +2060,32 @@ const
     *
     * @sa Use rd_kafka_errno2err() to convert `errno` to rdkafka error code.
   *)
-function rd_kafka_produce(rkt: prd_kafka_topic_t; partition: Int32;
-		      msgflags: Integer;
-		      payload: Pointer; len: NativeInt;
-		      key: Pointer; keylen: NativeInt;
-		      msg_opaque: Pointer): Integer; cdecl;
-  (* *
-    * @brief Produce multiple messages.
-    *
-    * If partition is RD_KAFKA_PARTITION_UA the configured partitioner will
-    * be run for each message (slower), otherwise the messages will be enqueued
-    * to the specified partition directly (faster).
-    *
-    * The messages are provided in the array \p rkmessages of count \p message_cnt
-    * elements.
-    * The \p partition and \p msgflags are used for all provided messages.
-    *
-    * Honoured \p rkmessages[] fields are:
-    *  - payload,len    Message payload and length
-    *  - key,key_len    Optional message key
-    *  - _private       Message opaque pointer (msg_opaque)
-    *  - err            Will be set according to success or failure.
-    *                   Application only needs to check for errors if
-    *                   return value != \p message_cnt.
-    *
-    * @returns the number of messages succesfully enqueued for producing.
-  *)
+function rd_kafka_produce(rkt: prd_kafka_topic_t; partition: Int32; msgflags: integer; payload: Pointer; len: NativeInt;
+  key: Pointer; keylen: NativeInt; msg_opaque: Pointer): integer; cdecl;
+(* *
+  * @brief Produce multiple messages.
+  *
+  * If partition is RD_KAFKA_PARTITION_UA the configured partitioner will
+  * be run for each message (slower), otherwise the messages will be enqueued
+  * to the specified partition directly (faster).
+  *
+  * The messages are provided in the array \p rkmessages of count \p message_cnt
+  * elements.
+  * The \p partition and \p msgflags are used for all provided messages.
+  *
+  * Honoured \p rkmessages[] fields are:
+  *  - payload,len    Message payload and length
+  *  - key,key_len    Optional message key
+  *  - _private       Message opaque pointer (msg_opaque)
+  *  - err            Will be set according to success or failure.
+  *                   Application only needs to check for errors if
+  *                   return value != \p message_cnt.
+  *
+  * @returns the number of messages succesfully enqueued for producing.
+*)
 
-function rd_kafka_produce_batch(rkt: prd_kafka_topic_t; partition: Int32; msgflags: integer; rkmessages: prd_kafka_message_t; message_cnt: integer): integer; cdecl;
+function rd_kafka_produce_batch(rkt: prd_kafka_topic_t; partition: Int32; msgflags: integer;
+  rkmessages: prd_kafka_message_t; message_cnt: integer): integer; cdecl;
 
 (* *
   * @brief Wait until all outstanding produce requests, et.al, are completed.
@@ -2089,8 +2123,9 @@ type
   rd_kafka_metadata_broker_t = rd_kafka_metadata_broker;
   prd_kafka_metadata_broker_t = ^rd_kafka_metadata_broker_t;
   prd_kafka_metadata_broker = ^rd_kafka_metadata_broker;
-  rd_kafka_metadata_broker_array = array[0..0] of rd_kafka_metadata_broker;
+  rd_kafka_metadata_broker_array = array [0 .. 0] of rd_kafka_metadata_broker;
   prd_kafka_metadata_broker_array = ^rd_kafka_metadata_broker_array;
+
   (* *
     * @brief Partition information
   *)
@@ -2107,8 +2142,9 @@ type
   rd_kafka_metadata_partition_t = rd_kafka_metadata_partition;
   prd_kafka_metadata_partition_t = ^rd_kafka_metadata_partition_t;
   prd_kafka_metadata_partition = ^rd_kafka_metadata_partition;
-  rd_kafka_metadata_partition_array = array[0..0] of rd_kafka_metadata_partition;
+  rd_kafka_metadata_partition_array = array [0 .. 0] of rd_kafka_metadata_partition;
   prd_kafka_metadata_partition_array = ^rd_kafka_metadata_partition_array;
+
   (* *
     * @brief Topic information
   *)
@@ -2122,8 +2158,9 @@ type
   rd_kafka_metadata_topic_t = rd_kafka_metadata_topic;
   prd_kafka_metadata_topic_t = ^rd_kafka_metadata_topic_t;
   prd_kafka_metadata_topic = ^rd_kafka_metadata_topic;
-  rd_kafka_metadata_topic_array = array[0..0] of rd_kafka_metadata_topic;
+  rd_kafka_metadata_topic_array = array [0 .. 0] of rd_kafka_metadata_topic;
   prd_kafka_metadata_topic_array = ^rd_kafka_metadata_topic_array;
+
   (* *
     * @brief Metadata container
   *)
@@ -2158,7 +2195,8 @@ type
     * other error code on error.
   *)
 
-function rd_kafka_metadata(rk: prd_kafka_t; all_topics: integer; only_rkt: prd_kafka_topic_t; var metadatap: prd_kafka_metadata; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_metadata(rk: prd_kafka_t; all_topics: integer; only_rkt: prd_kafka_topic_t;
+  var metadatap: prd_kafka_metadata; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Release metadata memory.
@@ -2196,7 +2234,7 @@ type
   end;
 
   prd_kafka_group_member_info = ^rd_kafka_group_member_info;
-  rd_kafka_group_member_info_array = array[0..0] of rd_kafka_group_member_info;
+  rd_kafka_group_member_info_array = array [0 .. 0] of rd_kafka_group_member_info;
   prd_kafka_group_member_info_array = ^rd_kafka_group_member_info_array;
   (* *
     * @brief Group information
@@ -2214,7 +2252,7 @@ type
   end;
 
   prd_kafka_group_info = ^rd_kafka_group_info;
-  rd_kafka_group_info_array = array[0..0] of rd_kafka_group_info;
+  rd_kafka_group_info_array = array [0 .. 0] of rd_kafka_group_info;
   prd_kafka_group_info_array = ^rd_kafka_group_info_array;
   (* *
     * @brief List of groups
@@ -2246,7 +2284,8 @@ type
     * @sa Use rd_kafka_group_list_destroy() to release list memory.
   *)
 
-function rd_kafka_list_groups(rk: prd_kafka_t; group: PAnsiChar; var grplistp: prd_kafka_group_list; timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
+function rd_kafka_list_groups(rk: prd_kafka_t; group: PAnsiChar; var grplistp: prd_kafka_group_list;
+  timeout_ms: integer): rd_kafka_resp_err_t; cdecl;
 
 (* *
   * @brief Release list memory
@@ -2356,8 +2395,7 @@ function rd_kafka_outq_len(rk: prd_kafka_t): integer; cdecl;
   * for brokers, topics, partitions, etc.
 *)
 
-
-// procedure rd_kafka_dump(fp: pFILE;  rk: prd_kafka_t); cdecl;
+procedure rd_kafka_dump(fp: Pointer; rk: prd_kafka_t); cdecl;
 
 (* *
   * @brief Retrieve the current number of threads in use by librdkafka.
@@ -2483,7 +2521,8 @@ function rd_kafka_event_message_next(rkev: prd_kafka_event_t): prd_kafka_message
   * @returns the number of messages extracted.
 *)
 
-function rd_kafka_event_message_array(rkev: prd_kafka_event_t; var rkmessages: prd_kafka_message_t; size: size_t): size_t; cdecl;
+function rd_kafka_event_message_array(rkev: prd_kafka_event_t; var rkmessages: prd_kafka_message_t; size: size_t)
+  : size_t; cdecl;
 
 (* *
   * @returns the number of remaining messages in the event.
@@ -2533,7 +2572,8 @@ procedure rd_kafka_event_opaque(rkev: prd_kafka_event_t); cdecl;
   * @returns 0 on success or -1 if unsupported event type.
 *)
 
-function rd_kafka_event_log(rkev: prd_kafka_event_t; const fac, str: PAnsiCharArray; var level: integer): integer; cdecl;
+function rd_kafka_event_log(rkev: prd_kafka_event_t; const fac, str: PAnsiCharArray; var level: integer)
+  : integer; cdecl;
 
 (* *
   * @returns the topic partition list from the event.
@@ -2742,7 +2782,7 @@ procedure rd_kafka_queue_forward; external LIBFILE;
 function rd_kafka_queue_length; external LIBFILE;
 procedure rd_kafka_queue_io_event_enable; external LIBFILE;
 function rd_kafka_consume_start; external LIBFILE;
- function rd_kafka_consume_start_queue; external LIBFILE;
+function rd_kafka_consume_start_queue; external LIBFILE;
 
 function rd_kafka_consume_stop; external LIBFILE;
 
@@ -2800,6 +2840,8 @@ procedure rd_kafka_log_print; external LIBFILE;
 procedure rd_kafka_log_syslog; external LIBFILE;
 
 function rd_kafka_outq_len; external LIBFILE;
+
+procedure rd_kafka_dump; external LIBFILE;
 
 function rd_kafka_thread_cnt; external LIBFILE;
 function rd_kafka_wait_destroyed; external LIBFILE;
